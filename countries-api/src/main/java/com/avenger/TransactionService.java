@@ -21,7 +21,12 @@ public interface TransactionService extends Service {
     
     ServiceCall<NotUsed, User> getUserByEmail(String email);
     
+    ServiceCall<User, String> addUser();
+    
+    ServiceCall<Product, String> addProduct();
+    
     ServiceCall<NotUsed, String> getHealth();
+    
     
     
     ServiceCall<NotUsed, Transaction> getTxnByProdIdAndUserId(Long productId, Long userId);
@@ -35,6 +40,8 @@ public interface TransactionService extends Service {
                         Service.restCall(GET, "/api/user/username/:username", this::getUserByUsername),
                         Service.restCall(GET, "/api/product/:productId", this::getProductByProductId),
                         Service.restCall(GET, "/api/txn/productId/:productId/user/userId", this::getTxnByProdIdAndUserId),
+                        Service.restCall(GET, "/api/add/user", this::addUser),
+                        Service.restCall(GET, "/api/add/product", this::addProduct),
                         Service.restCall(GET, "/health", this::getHealth)
                 .withAutoAcl(true));
     }

@@ -61,6 +61,18 @@ public class TransactionServiceImpl implements TransactionService {
     public ServiceCall<NotUsed, String> getHealth() {
         return req -> CompletableFuture.completedFuture("Service is up");
     }
+    
+    @Override
+    public ServiceCall<User, String> addUser() {
+        return req -> CompletableFuture.completedFuture("User Added");
+    }
+    
+    @Override
+    public ServiceCall<Product, String> addProduct() {
+        return req -> CompletableFuture.completedFuture("Product Added");
+    }
+    
+    
 }
     
 

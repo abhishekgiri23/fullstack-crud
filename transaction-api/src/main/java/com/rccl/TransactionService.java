@@ -1,9 +1,9 @@
-package com.avenger;
+package com.rccl;
 
 import akka.NotUsed;
-import com.avenger.models.Product;
-import com.avenger.models.Transaction;
-import com.avenger.models.User;
+import com.rccl.models.Product;
+import com.rccl.models.Transaction;
+import com.rccl.models.User;
 import com.lightbend.lagom.javadsl.api.Descriptor;
 import com.lightbend.lagom.javadsl.api.Service;
 import com.lightbend.lagom.javadsl.api.ServiceCall;

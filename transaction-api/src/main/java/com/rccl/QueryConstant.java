@@ -1,4 +1,4 @@
-package com.avenger;
+package com.rccl;
 
 public class QueryConstant {
     

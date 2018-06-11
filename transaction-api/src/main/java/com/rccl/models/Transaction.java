@@ -1,4 +1,4 @@
-package com.avenger.models;
+package com.rccl.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

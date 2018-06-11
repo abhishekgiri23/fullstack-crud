@@ -14,17 +14,20 @@ import static com.lightbend.lagom.javadsl.api.transport.Method.GET;
 import static com.lightbend.lagom.javadsl.api.transport.Method.POST;
 import static com.lightbend.lagom.javadsl.api.transport.Method.PUT;
 
-public interface TransactionService extends Service {
+public interface ProductService extends Service {
+    
+    ServiceCall<NotUsed, Product> getProductByProductId(int productId);
+    
+    ServiceCall<Product, String> addProduct();
     
     ServiceCall<NotUsed, String> getHealth();
-    
-    ServiceCall<NotUsed, Transaction> getTxnByProdIdAndUserId(int productId, int userId);
     
     @Override
     default Descriptor descriptor() {
         return Service.named("transactions")
                 .withCalls(
-                        restCall(GET, "/api/txn/user/:userId/productId/:productId", this::getTxnByProdIdAndUserId),
+                        restCall(GET, "/api/product/:productId", this::getProductByProductId),
+                        restCall(GET, "/api/add/product", this::addProduct),
                         restCall(GET, "/health", this::getHealth))
                 .withAutoAcl(true);
     }

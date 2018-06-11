@@ -1,4 +1,4 @@
-package com.rccl;
+package com.rccl.product;
 
 
 import com.lightbend.lagom.javadsl.persistence.jdbc.JdbcSession;

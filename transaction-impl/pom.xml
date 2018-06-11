@@ -4,12 +4,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.avenger</groupId>
-    <artifactId>countries</artifactId>
+    <groupId>com.rccl</groupId>
+    <artifactId>transactions</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>countries-impl</artifactId>
+  <artifactId>transaction-impl</artifactId>
   <packaging>jar</packaging>
 
   <dependencies>
@@ -26,22 +26,22 @@
 
     <dependency>
       <groupId>com.lightbend.lagom</groupId>
-      <artifactId>lagom-javadsl-server_2.12</artifactId>
+      <artifactId>lagom-javadsl-server_2.11</artifactId>
     </dependency>
 
     <dependency>
       <groupId>com.lightbend.lagom</groupId>
-      <artifactId>lagom-javadsl-testkit_2.12</artifactId>
+      <artifactId>lagom-javadsl-testkit_2.11</artifactId>
     </dependency>
 
     <dependency>
       <groupId>com.lightbend.lagom</groupId>
-      <artifactId>lagom-javadsl-persistence-jdbc_2.12</artifactId>
+      <artifactId>lagom-javadsl-persistence-jdbc_2.11</artifactId>
     </dependency>
 
     <dependency>
       <groupId>com.lightbend.lagom</groupId>
-      <artifactId>lagom-javadsl-jackson_2.12</artifactId>
+      <artifactId>lagom-javadsl-jackson_2.11</artifactId>
     </dependency>
 
     <dependency>
@@ -56,23 +56,22 @@
 
     <dependency>
       <groupId>com.typesafe.play</groupId>
-      <artifactId>play-netty-server_2.12</artifactId>
+      <artifactId>play-netty-server_2.11</artifactId>
     </dependency>
 
     <dependency>
       <groupId>com.lightbend.lagom</groupId>
-      <artifactId>lagom-logback_2.12</artifactId>
+      <artifactId>lagom-logback_2.11</artifactId>
     </dependency>
 
     <dependency>
       <groupId>com.lightbend.lagom</groupId>
-      <artifactId>lagom-javadsl-broker_2.12</artifactId>
+      <artifactId>lagom-javadsl-broker_2.11</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>42.2.2</version>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
     </dependency>
 
   </dependencies>

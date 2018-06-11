@@ -3,13 +3,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.rccl</groupId>
-  <artifactId>transactions</artifactId>
+  <artifactId>fullstack-crud</artifactId>
   <packaging>pom</packaging>
   <version>1.0.0-SNAPSHOT</version>
 
   <modules>
     <module>transaction-api</module>
     <module>transaction-impl</module>
+    <module>user-api</module>
+    <module>user-impl</module>
+    <module>product-api</module>
+    <module>product-impl</module>
   </modules>
 
   <properties>
@@ -80,11 +84,11 @@
         <version>${lagom.version}</version>
       </dependency>
 
-     <!-- <dependency>
-        <groupId>com.lightbend.lagom</groupId>
-        <artifactId>lagom-javadsl-persistence-cassandra_2.12</artifactId>
-        <version>${lagom.version}</version>
-      </dependency>-->
+      <!-- <dependency>
+         <groupId>com.lightbend.lagom</groupId>
+         <artifactId>lagom-javadsl-persistence-cassandra_2.12</artifactId>
+         <version>${lagom.version}</version>
+       </dependency>-->
 
 
       <dependency>
@@ -186,13 +190,13 @@
           <cassandraEnabled>false</cassandraEnabled>
           <kafkaEnabled>false</kafkaEnabled>
           <unmanagedServices>
-<!--
-            <cas_native>${cassandraservice}</cas_native>
--->
+            <!--
+                        <cas_native>${cassandraservice}</cas_native>
+            -->
           </unmanagedServices>
-<!--
-          <cassandraEnabled>false</cassandraEnabled>
--->
+          <!--
+                    <cassandraEnabled>false</cassandraEnabled>
+          -->
         </configuration>
       </plugin>
 

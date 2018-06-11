@@ -32,6 +32,43 @@ public class UserRepository {
         ).exceptionally(throwable -> {
             throw new RuntimeException("something went wrong", throwable);
         });
-        
     }
+    
+    
+    public CompletionStage<String> deleteUser(int userId, JdbcSession session){
+        return session.withConnection( connection ->
+                {
+                    try (CallableStatement callableStatement = connection.prepareCall("delete from txns.USER_DETAILS where user_id = ?")) {
+                        callableStatement.setInt(1, userId);
+                        callableStatement.execute();
+                        return "user deleted successfully!!";
+                    }
+                
+                }
+        ).exceptionally(throwable -> {
+            throw new RuntimeException("something went wrong", throwable);
+        });
+    }
+    
+   /* public CompletionStage<String> addUser(User user, JdbcSession session){
+        return session.withConnection( connection ->
+                {
+                    try (CallableStatement callableStatement = connection.prepareCall("insert into txns.USER_DETAILS (?, ?, ?, ?, ?)")) {
+                        callableStatement.setInt(1, user.getUserId);
+                        callableStatement.setString(2, user.getName);
+                        callableStatement.setString(3, user.getEmail);
+                        callableStatement.setString(4, user.getUsername);
+                        callableStatement.setString(5, user.getPhone);
+                        callableStatement.execute();
+                        return "user added successfully!!";
+                    }
+                
+                }
+        ).exceptionally(throwable -> {
+            throw new RuntimeException("something went wrong", throwable);
+        });
+    }*/
+    
+    
+    
 }

@@ -33,5 +33,20 @@ public CompletionStage<Product> getProduct(int productId, JdbcSession session) {
     });
     
 }
+    
+    public CompletionStage<String> deleteProduct(int productId, JdbcSession session){
+        return session.withConnection( connection ->
+                {
+                    try (CallableStatement callableStatement = connection.prepareCall("delete from txns.Products where user_id = ?")) {
+                        callableStatement.setInt(1, productId);
+                        callableStatement.execute();
+                        return "product deleted successfully!!";
+                    }
+                    
+                }
+        ).exceptionally(throwable -> {
+            throw new RuntimeException("something went wrong", throwable);
+        });
+    }
 
 }

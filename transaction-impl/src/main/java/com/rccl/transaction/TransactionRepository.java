@@ -3,7 +3,6 @@ package com.rccl.transaction;
 
 import com.lightbend.lagom.javadsl.persistence.jdbc.JdbcSession;
 import com.rccl.models.Transaction;
-import com.rccl.models.User;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -37,8 +36,7 @@ public class TransactionRepository {
             throw new RuntimeException("something went wrong", throwable);
         });
     
-    
-    
+        
     }
 
 

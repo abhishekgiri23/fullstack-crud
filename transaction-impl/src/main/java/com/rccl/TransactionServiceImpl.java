@@ -68,21 +68,16 @@ public class TransactionServiceImpl implements TransactionService {
     }
     
     @Override
-    public ServiceCall<NotUsed, User> getUserByEmail(String email) {
-        
-        return null;
-    }
-    
-    @Override
-    public ServiceCall<NotUsed, User> getUserByUsername(String username) {
-        return null;
-        
-    }
-    
-    @Override
     public ServiceCall<NotUsed, Product> getProductByProductId(int productId) {
     
         return request -> productRepository.getProduct(productId, session);
+    
+    }
+    
+    @Override
+    public ServiceCall<User, String> updateUser() {
+    
+        return null;
     
     }
     
@@ -98,7 +93,13 @@ public class TransactionServiceImpl implements TransactionService {
     
     @Override
     public ServiceCall<User, String> addUser() {
-        return req -> CompletableFuture.completedFuture("User Added");
+        return null;
+    }
+    
+    
+    @Override
+    public ServiceCall<NotUsed, String> deleteUser(int userID) {
+        return req -> userRepository.deleteUser(userID, session);
     }
     
     @Override

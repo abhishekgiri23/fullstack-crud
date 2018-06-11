@@ -12,12 +12,12 @@ public class MysqlConnection {
 
     public static void main(String[] argv) {
 
-        System.out.println("-------- MySQL "
+        System.out.println("-------- MYSQL "
                 + "JDBC Connection Testing ------------");
 
         try {
 
-            Class.forName("org.postgresql.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
 
         } catch (ClassNotFoundException e) {
 
@@ -28,7 +28,10 @@ public class MysqlConnection {
 
         }
 
-       addtxnsData();
+        addtxnsData();
+        addProductsData();
+        addUserData();
+        
         System.out.println("PostgreSQL JDBC Driver Registered!");
 
     }
@@ -41,8 +44,8 @@ public class MysqlConnection {
 
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://127.0.0.1:5432/", "postgres",
-                    "KunalS@201");
+                    "\"jdbc:mysql://localhost/txns", "kunal",
+                    "root");
         } catch (SQLException e) {
 
             System.out.println("Connection Failed! Check output console");
@@ -52,7 +55,7 @@ public class MysqlConnection {
 
         try {
 
-            String fileName = "/home/knoldus/Desktop/Data/products.csv";
+            String fileName = "/home/kunal/fullstack-crud/transaction-impl/src/main/mockdata/products.csv";
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String strLine = null;
             StringTokenizer st = null;
@@ -102,8 +105,8 @@ public class MysqlConnection {
 
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://127.0.0.1:5432/", "postgres",
-                    "anshul123@");
+                    "jdbc:mysql://localhost/txns", "kunal",
+                    "root");
         } catch (SQLException e) {
 
             System.out.println("Connection Failed! Check output console");
@@ -113,7 +116,7 @@ public class MysqlConnection {
 
         try {
 
-            String fileName = "/home/knoldus/Desktop/Data/user.csv";
+            String fileName = "/home/kunal/fullstack-crud/transaction-impl/src/main/mockdata/user.csv";
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String strLine = null;
             StringTokenizer st = null;
@@ -166,8 +169,8 @@ public class MysqlConnection {
 
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://127.0.0.1:5432/", "postgres",
-                    "anshul123@");
+                    "jdbc:mysql://localhost/txns", "kunal",
+                    "root");
         } catch (SQLException e) {
 
             System.out.println("Connection Failed! Check output console");
@@ -177,7 +180,7 @@ public class MysqlConnection {
 
         try {
 
-            String fileName = "/home/knoldus/Desktop/Data/txn.csv";
+            String fileName = "/home/kunal/fullstack-crud/transaction-impl/src/main/mockdata/txn.csv";
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String strLine = null;
             StringTokenizer st = null;
@@ -219,5 +222,4 @@ public class MysqlConnection {
             System.out.println("Failed to make connection!");
         }
     }
-    
 }

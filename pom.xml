@@ -45,7 +45,7 @@
     <jmockit.version>1.8</jmockit.version>
     <lagom.version>1.4.5</lagom.version>
     <lombok>1.16.16</lombok>
-    <play.version>2.6.12</play.version>
+    <play.version>2.6.13</play.version>
 
     <cassandraservice>http://localhost:9042</cassandraservice>
   </properties>

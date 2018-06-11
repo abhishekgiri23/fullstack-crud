@@ -13,9 +13,9 @@ import static com.lightbend.lagom.javadsl.api.transport.Method.GET;
 public interface TransactionService extends Service {
     
     
-    ServiceCall<NotUsed, User> getUserByUserId(Long userId);
+    ServiceCall<NotUsed, User> getUserByUserId(int userId);
     
-    ServiceCall<NotUsed, Product> getProductByProductId(Long productId);
+    ServiceCall<NotUsed, Product> getProductByProductId(int productId);
     
     ServiceCall<NotUsed, User> getUserByUsername(String username);
     
@@ -29,7 +29,7 @@ public interface TransactionService extends Service {
     
     
     
-    ServiceCall<NotUsed, Transaction> getTxnByProdIdAndUserId(Long productId, Long userId);
+    ServiceCall<NotUsed, Transaction> getTxnByProdIdAndUserId(int productId, int userId);
     
     @Override
     default Descriptor descriptor() {
@@ -39,10 +39,10 @@ public interface TransactionService extends Service {
                         Service.restCall(GET, "/api/user/email/:email", this::getUserByEmail),
                         Service.restCall(GET, "/api/user/username/:username", this::getUserByUsername),
                         Service.restCall(GET, "/api/product/:productId", this::getProductByProductId),
-                        Service.restCall(GET, "/api/txn/productId/:productId/user/userId", this::getTxnByProdIdAndUserId),
+                        Service.restCall(GET, "/api/txn/user/:userId/productId/:productId", this::getTxnByProdIdAndUserId),
                         Service.restCall(GET, "/api/add/user", this::addUser),
                         Service.restCall(GET, "/api/add/product", this::addProduct),
-                        Service.restCall(GET, "/health", this::getHealth)
-                .withAutoAcl(true));
+                        Service.restCall(GET, "/health", this::getHealth))
+                .withAutoAcl(true);
     }
 }

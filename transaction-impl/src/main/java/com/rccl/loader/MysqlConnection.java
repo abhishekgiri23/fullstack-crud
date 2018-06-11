@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.StringTokenizer;
 
-public class PostGresConnection {
+public class MysqlConnection {
 
     public static void main(String[] argv) {
 
-        System.out.println("-------- PostgreSQL "
+        System.out.println("-------- MySQL "
                 + "JDBC Connection Testing ------------");
 
         try {

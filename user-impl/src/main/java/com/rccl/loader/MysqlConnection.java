@@ -11,57 +11,61 @@ import java.util.StringTokenizer;
 
 @Singleton
 public class MysqlConnection {
-
     
-    public MysqlConnection(){
+    private static String TRANSACTION_FILE_PATH = "/home/kunal/fullstack-crud/user-impl/src/main/mockdata/txn.csv";
+    private static String USER_FILE_PATH = "/home/kunal/fullstack-crud/user-impl/src/main/mockdata/user.csv";
+    private static String PRODUCT_FILE_PATH = "/home/kunal/fullstack-crud/user-impl/src/main/mockdata/products.csv";
+    private static String JDBC_URL = "jdbc:mysql://localhost/txns";
+    private static String USERNAME = "kunal";
+    private static String PASSWORD = "root";
+    
+    public MysqlConnection() {
         try {
-        
+            
             Class.forName("com.mysql.jdbc.Driver");
-        
+            
         } catch (ClassNotFoundException e) {
-        
+            
             System.out.println("Where is your PostgreSQL JDBC Driver? "
                     + "Include in your library path!");
             e.printStackTrace();
             return;
-        
+            
         }
         addtxnsData();
         addProductsData();
         addUserData();
-        }
+    }
     
-
-    
-    private static void addProductsData() {
-
+    private static Connection getConnection() {
         Connection connection = null;
-        Statement stmt = null;
-
         try {
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/txns", "kunal",
-                    "root");
+            connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
         } catch (Exception e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
         }
-
-
+        return connection;
+    }
+    
+    private static void addProductsData() {
+        
+        Connection connection = getConnection();
+        Statement stmt = null;
+        
         try {
-
-            String fileName = "/home/kunal/fullstack-crud/user-impl/src/main/mockdata/products.csv";
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            
+            BufferedReader br = new BufferedReader(new FileReader(PRODUCT_FILE_PATH));
             String strLine = null;
             StringTokenizer st = null;
             int lineNumber = 0;
-
-            while ((fileName = br.readLine()) != null) {
+            
+            while ((PRODUCT_FILE_PATH = br.readLine()) != null) {
                 lineNumber++;
-
+                
                 //break comma separated line using ","
-                st = new StringTokenizer(fileName, ",");
-
+                st = new StringTokenizer(PRODUCT_FILE_PATH, ",");
+                
                 while (st.hasMoreTokens()) {
                     //display csv values
                     Statement statement = null;
@@ -83,46 +87,34 @@ public class MysqlConnection {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-
+        
+        
         if (connection != null) {
             System.out.println("You made it, take control your database now!");
         } else {
             System.out.println("Failed to make connection!");
         }
     }
-
-
+    
+    
     private static void addUserData() {
-
-        Connection connection = null;
+        
+        Connection connection = getConnection();
         Statement stmt = null;
-
+        
         try {
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/txns", "kunal",
-                    "root");
-        } catch (SQLException e) {
-
-            System.out.println("Connection Failed! Check output console");
-            e.printStackTrace();
-        }
-
-
-        try {
-
-            String fileName = "/home/kunal/fullstack-crud/user-impl/src/main/mockdata/user.csv";
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            
+            BufferedReader br = new BufferedReader(new FileReader(USER_FILE_PATH));
             String strLine = null;
             StringTokenizer st = null;
             int lineNumber = 0;
-
-            while ((fileName = br.readLine()) != null) {
+            
+            while ((USER_FILE_PATH = br.readLine()) != null) {
                 lineNumber++;
-
+                
                 //break comma separated line using ","
-                st = new StringTokenizer(fileName, ",");
-
+                st = new StringTokenizer(USER_FILE_PATH, ",");
+                
                 while (st.hasMoreTokens()) {
                     //display csv values
                     Statement statement = null;
@@ -134,7 +126,7 @@ public class MysqlConnection {
                         String userName = st.nextToken();
                         String phone = st.nextToken();
                         String theStatement = "INSERT IGNORE INTO  USER_DETAILS VALUES(" + userId + ", " + "'" +
-                                name.replaceAll("'","''") + "'" + ", " + "'" + email + "'" + "," + "'" + userName + "'"+ "," + "'" + phone + "'" + ")";
+                                name.replaceAll("'", "''") + "'" + ", " + "'" + email + "'" + "," + "'" + userName + "'" + "," + "'" + phone + "'" + ")";
 //						System.out.println(theStatement);
                         statement.executeUpdate(theStatement);
                     } catch (Exception e) {
@@ -147,48 +139,34 @@ public class MysqlConnection {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-
+        
+        
         if (connection != null) {
             System.out.println("You made it, take control your database now!");
         } else {
             System.out.println("Failed to make connection!");
         }
     }
-
-
-
+    
+    
     private static void addtxnsData() {
-
-        Connection connection = null;
+        
+        Connection connection = getConnection();
         Statement stmt = null;
-
+        
         try {
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/txns", "kunal",
-                    "root");
-            System.out.println("Connection is here \n\n\n\n"+( connection != null )+"\n\n\n\n");
-        } catch (SQLException e) {
-
-            System.out.println("Connection Failed! Check output console");
-            e.printStackTrace();
-        }
-
-
-        try {
-
-            String fileName = "/home/kunal/fullstack-crud/user-impl/src/main/mockdata/txn.csv";
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            
+            BufferedReader br = new BufferedReader(new FileReader(TRANSACTION_FILE_PATH));
             String strLine = null;
             StringTokenizer st = null;
             int lineNumber = 0;
-
-            while ((fileName = br.readLine()) != null) {
+            
+            while ((TRANSACTION_FILE_PATH = br.readLine()) != null) {
                 lineNumber++;
-
+                
                 //break comma separated line using ","
-                st = new StringTokenizer(fileName, ",");
-
+                st = new StringTokenizer(TRANSACTION_FILE_PATH, ",");
+                
                 while (st.hasMoreTokens()) {
                     //display csv values
                     Statement statement = null;
@@ -199,8 +177,6 @@ public class MysqlConnection {
                         String productID = st.nextToken();
                         String qunatity = st.nextToken();
                         String theStatement = "INSERT IGNORE INTO  txn VALUES(" + userID + ", " + productID + ", " + qunatity + ")";
-
-//						System.out.println(theStatement);
                         statement.executeUpdate(theStatement);
                     } catch (Exception e) {
                         // TODO Auto-generated catch block
@@ -212,8 +188,7 @@ public class MysqlConnection {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-
+        
         if (connection != null) {
             System.out.println("You made it, take control your database now!");
         } else {

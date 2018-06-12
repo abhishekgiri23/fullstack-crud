@@ -7,6 +7,7 @@ import com.lightbend.lagom.javadsl.persistence.jdbc.JdbcSession;
 import com.rccl.product.ProductRepository;
 
 import javax.inject.Inject;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class ProductServiceImpl implements ProductService {
@@ -27,9 +28,11 @@ public class ProductServiceImpl implements ProductService {
      * @return
      */
     @Override
-    public ServiceCall<NotUsed, Product> getProductByProductId(int productId) {
+    public ServiceCall<NotUsed, Optional<Product>> getProductByProductId(int productId) {
         
-        return request -> productRepository.getProduct(productId, session);
+        return request -> productRepository.getProduct(productId, session).exceptionally(throwable -> {
+            throw new RuntimeException("something went wrong", throwable);
+        });
         
     }
     
@@ -42,13 +45,24 @@ public class ProductServiceImpl implements ProductService {
         return req -> CompletableFuture.completedFuture("Service is up");
     }
     
+    
+    @Override
+    public ServiceCall<NotUsed, String> deleteProduct(int productId) {
+        return req -> productRepository.deleteProduct(productId, session);
+    }
+    
     /**
      *
      * @return
      */
     @Override
     public ServiceCall<Product, String> addProduct() {
-        return req -> CompletableFuture.completedFuture("Product Added");
+        return prod -> productRepository.addProduct(prod, session);
+    }
+    
+    @Override
+    public ServiceCall<Product, String> updateProduct(int productId) {
+        return prod -> productRepository.updateProduct(productId, prod, session);
     }
     
     

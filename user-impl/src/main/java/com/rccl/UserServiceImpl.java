@@ -7,6 +7,7 @@ import com.rccl.models.User;
 import com.rccl.product.UserRepository;
 
 import javax.inject.Inject;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class UserServiceImpl implements UserService {
@@ -27,20 +28,18 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public ServiceCall<NotUsed, User> getUserByUserId(int userId) {
+    public ServiceCall<NotUsed, Optional<User>> getUserByUserId(int userId) {
         
-        return req -> userRepository.getUser(userId, session);
+        return req -> userRepository.getUser(userId, session).exceptionally(throwable ->
+        {
+                       throw  new RuntimeException("Something went wrong " + throwable.getMessage());
+        });
     }
     
     /**
      *
      * @return
      */
-    @Override
-    public ServiceCall<User, String> updateUser() {
-        
-        return null;
-    }
     
     /**
      *
@@ -57,7 +56,12 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public ServiceCall<User, String> addUser() {
-        return null;
+        return user -> userRepository.addUser(user, session);
+    }
+    
+    @Override
+    public ServiceCall<User, String> updateUser(int userID) {
+        return user -> userRepository.updateUser(userID, user, session);
     }
     
     /**

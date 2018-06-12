@@ -6,6 +6,8 @@ import com.lightbend.lagom.javadsl.api.Service;
 import com.lightbend.lagom.javadsl.api.ServiceCall;
 import com.rccl.models.User;
 
+import java.util.Optional;
+
 import static com.lightbend.lagom.javadsl.api.Service.restCall;
 import static com.lightbend.lagom.javadsl.api.transport.Method.DELETE;
 import static com.lightbend.lagom.javadsl.api.transport.Method.GET;
@@ -15,11 +17,11 @@ import static com.lightbend.lagom.javadsl.api.transport.Method.PUT;
 public interface UserService extends Service {
     
     
-    ServiceCall<NotUsed, User> getUserByUserId(int userId);
+    ServiceCall<NotUsed, Optional<User>> getUserByUserId(int userId);
     
     ServiceCall<NotUsed, String> deleteUser(int userId);
     
-    ServiceCall<User, String> updateUser();
+    ServiceCall<User, String> updateUser(int userId);
     
     ServiceCall<User, String> addUser();
     
@@ -31,7 +33,7 @@ public interface UserService extends Service {
                 .withCalls(
                         restCall(GET, "/api/user/:userID", this::getUserByUserId),
                         restCall(DELETE, "/api/delete/user/:user", this::deleteUser),
-                        restCall(PUT, "/api/updateuser", this::updateUser),
+                        restCall(PUT, "/api/updateuser/:userID", this::updateUser),
                         restCall(POST, "/api/add/user", this::addUser),
                         restCall(GET, "/health", this::getHealth))
                 .withAutoAcl(true);

@@ -9,6 +9,7 @@ import com.rccl.models.User;
 import com.rccl.transaction.TransactionRepository;
 
 import javax.inject.Inject;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class TransactionServiceImpl implements TransactionService {
@@ -30,8 +31,13 @@ public class TransactionServiceImpl implements TransactionService {
      * @return
      */
     @Override
-    public ServiceCall<NotUsed, Transaction> getTxnByProdIdAndUserId(int productId, int userId) {
+    public ServiceCall<NotUsed, Optional<Transaction>> getTxnByProdIdAndUserId(long userId, int productId) {
         return request -> transactionRepository.getTransaction(userId, productId, session);
+    }
+    
+    @Override
+    public ServiceCall<NotUsed, String> deleteTxn(long userId, int productId) {
+        return request -> transactionRepository.deleteTxn(userId, productId, session);
     }
     
     /**

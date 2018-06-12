@@ -4,7 +4,7 @@ import akka.NotUsed;
 import com.lightbend.lagom.javadsl.api.ServiceCall;
 import com.lightbend.lagom.javadsl.persistence.jdbc.JdbcSession;
 import com.rccl.models.User;
-import com.rccl.product.UserRepository;
+import com.rccl.user.UserRepository;
 
 import javax.inject.Inject;
 import java.util.Optional;
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public ServiceCall<User, String> addUser() {
+    public ServiceCall<User, User> addUser() {
         return user -> userRepository.addUser(user, session);
     }
     
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public ServiceCall<NotUsed, String> deleteUser(int userID) {
+    public ServiceCall<NotUsed, User> deleteUser(int userID) {
         return req -> userRepository.deleteUser(userID, session);
     }
     

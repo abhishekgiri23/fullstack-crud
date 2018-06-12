@@ -1,5 +1,8 @@
 package com.rccl.loader;
 
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+
 import javax.inject.Singleton;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,7 +14,8 @@ import java.util.StringTokenizer;
 
 @Singleton
 public class MysqlConnection {
-
+    
+    private Config config = ConfigFactory.load("application.conf");
     
     public MysqlConnection(){
         try {

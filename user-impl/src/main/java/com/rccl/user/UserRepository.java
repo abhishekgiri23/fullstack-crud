@@ -1,4 +1,4 @@
-package com.rccl.product;
+package com.rccl.user;
 
 
 import com.lightbend.lagom.javadsl.api.transport.NotFound;
@@ -39,13 +39,15 @@ public class UserRepository {
     }
     
     
-    public CompletionStage<String> deleteUser(int userId, JdbcSession session){
+    public CompletionStage<User> deleteUser(int userId, JdbcSession session){
         return session.withConnection( connection ->
                 {
                     try (CallableStatement callableStatement = connection.prepareCall("delete from txns.USER_DETAILS where user_id = ?")) {
                         callableStatement.setInt(1, userId);
                         callableStatement.execute();
-                        return "user deleted successfully!!";
+                        User.UserBuilder user = User.builder();
+                        
+                        return user.build();
                     }
                 
                 }
@@ -54,7 +56,7 @@ public class UserRepository {
         });
     }
     
-    public CompletionStage<String> addUser(User user, JdbcSession session){
+    public CompletionStage<User> addUser(User user, JdbcSession session){
         return session.withConnection( connection ->
                 {
                     try (CallableStatement callableStatement = connection.prepareCall("insert into txns.USER_DETAILS " +
@@ -66,7 +68,9 @@ public class UserRepository {
                         callableStatement.setString(4, user.getUsername());
                         callableStatement.setString(5, user.getPhone());
                         callableStatement.execute();
-                        return "user added successfully!!";
+                        User.UserBuilder userObj = User.builder();
+    
+                        return userObj.build();
                     }
                 }
         ).exceptionally(throwable -> {

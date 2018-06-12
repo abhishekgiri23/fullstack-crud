@@ -3,7 +3,9 @@ package com.rccl;
 import akka.NotUsed;
 import com.lightbend.lagom.javadsl.api.Descriptor;
 import com.lightbend.lagom.javadsl.api.Service;
+import com.lightbend.lagom.javadsl.api.ServiceAcl;
 import com.lightbend.lagom.javadsl.api.ServiceCall;
+import com.lightbend.lagom.javadsl.api.transport.Method;
 import com.rccl.models.User;
 
 import java.util.Optional;
@@ -19,11 +21,11 @@ public interface UserService extends Service {
     
     ServiceCall<NotUsed, Optional<User>> getUserByUserId(int userId);
     
-    ServiceCall<NotUsed, String> deleteUser(int userId);
+    ServiceCall<NotUsed, User> deleteUser(int userId);
     
     ServiceCall<User, String> updateUser(int userId);
     
-    ServiceCall<User, String> addUser();
+    ServiceCall<User, User> addUser();
     
     ServiceCall<NotUsed, String> getHealth();
     
@@ -35,7 +37,8 @@ public interface UserService extends Service {
                         restCall(DELETE, "/api/delete/user/:user", this::deleteUser),
                         restCall(PUT, "/api/updateuser/:userID", this::updateUser),
                         restCall(POST, "/api/add/user", this::addUser),
-                        restCall(GET, "/health", this::getHealth))
-                .withAutoAcl(true);
+                        restCall(GET, "/api/health", this::getHealth))
+                .withAutoAcl(true)
+                .withServiceAcls(ServiceAcl.methodAndPath(Method.OPTIONS, "/api/.*"));
     }
 }
